@@ -7,7 +7,7 @@ const TURNS = {
 }
 
 const WINNER = {
-  ... TURNS,
+  ...TURNS,
   TIE: 'TIE',
 }
 
@@ -42,14 +42,13 @@ function App() {
   const [winner, setWinner] = useState(null)
 
   const checkWinner = (boardToCheck) => {
-    WINNER_COMBOS.forEach((combo) => {
+    for ( const combo of WINNER_COMBOS ) {
       const [a, b, c] = combo
-      if (boardToCheck[a] &&
-        boardToCheck[a] === boardToCheck[b] &&
-        boardToCheck[a] === boardToCheck[c]) {
-        setWinner(boardToCheck[a])
+      if (boardToCheck[a] && boardToCheck[a] === boardToCheck[b] && boardToCheck[a] === boardToCheck[c]) {
+        return boardToCheck[a]
       }
-    })
+    }
+    return null
   }
 
   const isBoardFull = (boardToCheck) => {
@@ -70,14 +69,17 @@ function App() {
     const newBoard = [...board]
     newBoard[index] = turn
     setBoard(newBoard)
-    // Change the turn
-    setTurn(turn === TURNS.X ? TURNS.O : TURNS.X)
-    // Check for a winner
-    checkWinner(newBoard)
-    // Check if the board is full
-    if (isBoardFull(newBoard)) {
+
+    // Check for a winner or tie
+    const newWinner = checkWinner(newBoard)
+    if (newWinner) {
+      setWinner(newWinner)
+    } else if (isBoardFull(newBoard)) {
       setWinner(WINNER.TIE)
     }
+
+    // Change the turn
+    setTurn(turn === TURNS.X ? TURNS.O : TURNS.X)
   }
 
   return (
