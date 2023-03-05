@@ -9,7 +9,7 @@ import { TURNS, WINNER } from './constants'
 import { checkWinner, isBoardFull } from './logic/board'
 import { storage } from './logic/storage'
 
-function App() {
+function App () {
   // Load the game state from local storage if it exists or create a new game
   const [board, setBoard] = useState(() => {
     const savedBoard = storage.get('board')
