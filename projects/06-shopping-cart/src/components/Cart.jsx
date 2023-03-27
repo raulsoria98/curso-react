@@ -51,7 +51,7 @@ export function Cart () {
         {
           cart.length > 0
             ? (
-              <button onClick={clearCart}>
+              <button onClick={() => clearCart()}>
                 <ClearCartIcon />
               </button>
               )
